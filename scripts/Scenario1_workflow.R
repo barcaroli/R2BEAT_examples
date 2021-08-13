@@ -1,5 +1,9 @@
-## ----echo=false---------------------------------------------
-options(width=85)
+#----------------------------
+# Workflow example Scenario 1
+#----------------------------
+# Together with a sampling frame containing the units of the population 
+# of reference, also a previous round of the sampling survey to be 
+# planned is available
 
 
 ## -----------------------------------------------------------
