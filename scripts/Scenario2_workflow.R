@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #----------------------------
 # Workflow example Scenario 2
 #----------------------------
@@ -731,7 +730,6 @@ eval$coeff_var
 # 2 0.0209 0.0205 0.0496 0.0805 DOM2
 # 3 0.0262 0.0356 0.0599 0.0471 DOM3
 
-save.image(file="scenario2.RData")
+# save.image(file="scenario2.RData")
 
 
->>>>>>> 25b32f75e5984cec7b5656ede629268780622e92

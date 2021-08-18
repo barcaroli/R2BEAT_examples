@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #----------------------------
 # Workflow example Scenario 1
 #----------------------------
@@ -6,8 +5,6 @@
 # of reference is available, no previous round of the sampling survey 
 
 library(R2BEAT)
-# source("sensitivity.R")
-# source("plot.sens.R")
 
 ## -----------------------------------------------------------
 ## Sampling frame
@@ -540,5 +537,5 @@ eval$coeff_var
 # 2 DOM2 0.03 0.06 0.06 0.06
 # eval$rel_bias
 
-save.image(file="scenario1.RData")
->>>>>>> 25b32f75e5984cec7b5656ede629268780622e92
+# save.image(file="scenario1.RData")
+
