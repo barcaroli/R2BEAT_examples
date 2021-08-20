@@ -4,11 +4,13 @@
 # Only a sampling frame containing the units of the population 
 # of reference is available, no previous round of the sampling survey 
 
+# Install last version of R2BEAT
+#devtools::install_github("barcaroli/R2BEAT)
 library(R2BEAT)
 
 ## -----------------------------------------------------------
 ## Sampling frame
-load("./data/pop.RData")
+load("pop.RData")
 
 ## -----------------------------------------------------------
 ## Precision constraints
@@ -92,7 +94,7 @@ minimum <- 50    # minimum number of SSUs to be interviewed in each selected PSU
 f = 0.05         # suggestion for the sampling fraction 
 deff_sugg <- 1.5 # suggestion for the deff value
  
-inp <- prepareInputToAllocation(samp_frame,
+inp <- prepareInputToAllocation1(samp_frame,
                                 id_PSU,
                                 id_SSU,
                                 strata_var,
@@ -179,28 +181,28 @@ des2$SSU <- as.numeric(c(des$SR_PSU_final_sample_unit[1:24],des$NSR_PSU_final_sa
 des2 <- as.data.frame(des2)
 des2$strata <- as.numeric(des2$strata)
 
-png("allocation.png")
+png("allocation1.png")
 par(mfrow=c(2, 1))
 barplot(PSU~SR+strata, data=des2,
         main = "PSUs by strata",
         xlab = "strata", ylab = "PSUs",
-        col = c("red", "grey"),
+        col = c("black", "grey"),
         # beside = TRUE,
         las=2,
         cex.names=0.7)
 legend("topright", 
        legend = c("Non Self Representative","Self Representative"),cex = 0.7,
-       fill = c("red", "grey"))
+       fill = c("black", "grey"))
 barplot(SSU~SR+strata, data=des2,
         main = "SSUs by strata",
         xlab = "strata", ylab = "SSUs",
-        col = c("red", "grey"),
+        col = c("black", "grey"),
         # beside = TRUE,
         las=2,
         cex.names=0.7)
 legend("topright", 
        legend = c("Non Self Representative","Self Representative"),cex = 0.7,
-       fill = c("red", "grey"))
+       fill = c("black", "grey"))
 dev.off()
 
 
@@ -226,16 +228,16 @@ save(sample,file="./data/sample.RData")
 
 png("weights1.png")
 par(mfrow=c(1, 2))
-boxplot(sample$weight,col="orange")
+boxplot(sample$weight,col="grey")
 title("Weights distribution (total sample)",cex.main=0.7)
-boxplot(weight ~ region, data=sample,col="orange")
+boxplot(weight ~ region, data=sample,col="grey")
 title("Weights distribution by region",cex.main=0.7)
 dev.off()
 png("weights2.png")
 par(mfrow=c(1, 2))
-boxplot(weight ~ province, data=sample,col="orange")
+boxplot(weight ~ province, data=sample,col="grey")
 title("Weights distribution by province",cex.main=0.7)
-boxplot(weight ~ stratum, data=sample,col="orange")
+boxplot(weight ~ stratum, data=sample,col="grey")
 title("Weights distribution by stratum",cex.main=0.7)
 dev.off()
 
@@ -292,5 +294,5 @@ eval$coeff_var
 # 2 DOM2 0.03 0.06 0.06 0.06
 # eval$rel_bias
 
-save.image(file="scenario1.RData")
+#save.image(file="scenario1.RData")
 
