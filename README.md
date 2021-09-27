@@ -1,4 +1,3 @@
-# R2BEAT_examples
-This repository contains reproducible examples of two-stage sample design and selection workflows obtainable by using the R package R2BEAT.
-Together with data, R scripts and Jupyter Notebooks are available to reproduce the examples of workflows.
-
+# Lucas
+Geolocalisation of LUCAS 2022 selected points
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/barcaroli/Lucas/HEAD?filepath=LUCAS2022.ipynb)
