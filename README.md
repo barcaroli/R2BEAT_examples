@@ -1,3 +1,6 @@
 # Lucas
-Geolocalisation of LUCAS 2022 selected points
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/barcaroli/Lucas/HEAD?filepath=LUCAS2022.ipynb)
+R2BEAT workflows
+Two scenarios:
+- without previous rounds of the sampling survey to be designed, but with a complete sampling frame (scenario 1);
+- with at least one previous round of the survey (scenario 2).
+
