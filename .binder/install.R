@@ -1,2 +1,2 @@
 install.packages("devtools")
-devtools::install_github("barcaroli/R2BEAT",dependencies=F)
+#devtools::install_github("barcaroli/R2BEAT",dependencies=F)
