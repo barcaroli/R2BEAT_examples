@@ -2,7 +2,7 @@
 title: "R2BEAT_workflows"
 author: "Giulio Barcaroli"
 date: "6/10/2021"
-output: html_document
+output: html_notebook
 ---
 
 ```{r setup, include=FALSE}
