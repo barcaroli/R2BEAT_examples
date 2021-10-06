@@ -1,0 +1,33 @@
+---
+title: "Workflow examples with R2BEAT "
+output: html_notebook
+---
+
+# Scenario 1
+Only a sampling frame containing the units of the population 
+of reference is available, no previous round of the sampling survey to be 
+planned
+
+```{r}
+# Install last version of R2BEAT and ReGenesees
+#install.packages("devtools")
+#devtools::install_github("DiegoZardetto/ReGenesees",dependencies = FALSE)
+#devtools::install_github("barcaroli/R2BEAT",dependencies=FALSE)
+library("R2BEAT")
+```
+
+```{r}
+packageVersion("ReGenesees")
+```
+
+```{r}
+packageVersion("R2BEAT")
+```
+
+```{r}
+## Sampling frame
+load("pop.RData")
+str(pop)
+```
+
+
