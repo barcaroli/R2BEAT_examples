@@ -30,7 +30,6 @@ sens_min_SSU <- sensitivity_min_SSU (
              deff_var="stratum",
              domain_var="region",
              delta=1,
-             f=0.05,
              deff_sugg=1,
              min=30,
              max=80,
@@ -47,10 +46,9 @@ deff_var <- "stratum"
 domain_var <- "region"  
 delta =  1       # households = survey units
 minimum <- 50    # minimum number of SSUs to be interviewed in each selected PSU
-f = 0.05         # suggestion for the sampling fraction 
 deff_sugg <- 1.5 # suggestion for the deff value
  
-inp <- prepareInputToAllocation1(samp_frame,
+inp1 <- prepareInputToAllocation1(samp_frame,
                                 id_PSU,
                                 id_SSU,
                                 strata_var,
@@ -59,48 +57,42 @@ inp <- prepareInputToAllocation1(samp_frame,
                                 domain_var,
                                 minimum,
                                 delta,
-                                f,
                                 deff_sugg)
 
-head(inp$strata)
+head(inp1$strata)
 
-head(inp$deff)
+head(inp1$deff)
 
-head(inp$effst)
+head(inp1$effst)
 
-head(inp$rho)
+head(inp1$rho)
 
-head(inp$psu_file)
+head(inp1$psu_file)
 
-head(inp$des_file)
+head(inp1$des_file)
 
-minPSUstrat <- 2
-inp$desfile$MINIMUM <- 50
-alloc <- beat.2st(stratif = inp$strata, 
+inp1$desfile$MINIMUM <- 50
+alloc1 <- beat.2st(stratif = inp1$strata, 
                   errors = cv, 
-                  des_file = inp$des_file, 
-                  psu_file = inp$psu_file, 
-                  rho = inp$rho, 
-                  deft_start = NULL, 
-                  effst = inp$effst,
-                  epsilon1 = 5, 
-                  mmdiff_deft = 1,
-                  maxi = 15, 
-                  epsilon = 10^(-11), 
-                  minPSUstrat,
-                  minnumstrat = 2, 
-                  maxiter = 200, 
-                  maxiter1 = 25)
+                  des_file = inp1$des_file, 
+                  psu_file = inp1$psu_file, 
+                  rho = inp1$rho, 
+                  deft_start = NULL,
+                  effst = inp1$effst, 
+                  minPSUstrat = 2,
+                  minnumstrat = 50
+                  )
 
 set.seed(1234)
-sample_1st <- select_PSU(alloc, type="ALLOC", pps=TRUE)
-head(sample_1st$sample_PSU)
+sample_1st <- select_PSU(alloc, type="ALLOC", pps=TRUE, plot=TRUE)
 sample_1st$PSU_stats
+head(sample_1st$sample_PSU)
 
+PSU_sampled <- sample_1st$sample_PSU
 samp <- select_SSU(df=pop,
                    PSU_code="municipality",
                    SSU_code="id_ind",
-                   PSU_sampled=sample_1st$sample_PSU,
+                   PSU_sampled,
                    verbose=TRUE)
 
 nrow(samp)
@@ -133,33 +125,30 @@ target_vars <- c("income_hh",
 # Domain level = national
 domain_var <- "one"
 set.seed(1234)
-eval <- eval_2stage(df,
+eval11 <- eval_2stage(df,
                     PSU_code,
                     SSU_code,
                     domain_var,
                     target_vars,
                     sample_1st$sample_PSU,
-                    nsampl=100, 
+                    nsampl=500, 
                     writeFiles=FALSE,
                     progress=TRUE) 
-eval$coeff_var
+eval11$coeff_var
 
 # Domain level = regional
 domain_var <- "region"
 set.seed(1234)
-set.seed(1234)
-eval <- eval_2stage(df,
+eval12 <- eval_2stage(df,
                     PSU_code,
                     SSU_code,
                     domain_var,
                     target_vars,
                     sample_1st$sample_PSU,
-                    nsampl=100, 
+                    nsampl=500, 
                     writeFiles=FALSE,
                     progress=TRUE) 
-eval$coeff_var
-
-alloc$sensitivity
+eval12$coeff_var
 
 save(samp,file="sample.RData")
 
@@ -211,7 +200,7 @@ domain_vars <- c("region")
 delta <- 1                   
 minimum <- 50                
 
-inp <- prepareInputToAllocation2(
+inp2 <- prepareInputToAllocation2(
         samp_frame,  # sampling frame
         RGdes,       # ReGenesees design object
         RGcal,       # ReGenesees calibrated object
@@ -225,39 +214,32 @@ inp <- prepareInputToAllocation2(
         minimum      # Minimum number of SSUs to be selected in each PSU
       )
 
-head(inp$strata)
+head(inp2$strata)
 
-head(inp$deff)
+head(inp2$deff)
 
-head(inp$effst)
+head(inp2$effst)
 
-head(inp$rho)
+head(inp2$rho)
 
-head(inp$psu_file)
+head(inp2$psu_file)
 
-head(inp$des_file)
+head(inp2$des_file)
 
 set.seed(1234)
-minPSUstrat <- 2
-inp$des_file$MINIMUM <- 50
-alloc <- beat.2st(stratif = inp$strata, 
+inp2$des_file$MINIMUM <- 50
+alloc2 <- beat.2st(stratif = inp2$strata, 
                   errors = cv, 
-                  des_file = inp$des_file, 
-                  psu_file = inp$psu_file, 
-                  rho = inp$rho, 
+                  des_file = inp2$des_file, 
+                  psu_file = inp2$psu_file, 
+                  rho = inp2$rho, 
                   deft_start = NULL, 
-                  effst = inp$effst,
-                  epsilon1 = 5, 
-                  mmdiff_deft = 1,
-                  maxi = 15, 
-                  epsilon = 10^(-11), 
+                  effst = inp2$effst,
                   minnumstrat = 2, 
-                  minPSUstrat,
-                  maxiter = 200, 
-                  maxiter1 = 25)
+                  minPSUstrat = 2)
 
 set.seed(1234)
-sample_1st <- select_PSU(alloc, type="ALLOC", pps=TRUE)
+sample_1st <- select_PSU(alloc2, type="ALLOC", pps=TRUE)
 sample_1st$PSU_stats
 
 set.seed(1234)
@@ -268,7 +250,7 @@ samp <- select_SSU(df=pop,
                    verbose=TRUE)
 
 nrow(samp)
-sum(alloc$alloc$ALLOC[-nrow(alloc$alloc)])
+sum(alloc2$alloc$ALLOC[-nrow(alloc2$alloc)])
 
 nrow(pop)
 sum(samp$weight)
@@ -297,30 +279,30 @@ target_vars <- c("income_hh",
 # Domain level = national
 domain_var <- "one"
 set.seed(1234)
-eval <- eval_2stage(df,
+eval21 <- eval_2stage(df,
                     PSU_code,
                     SSU_code,
                     domain_var,
                     target_vars,
                     PSU_sampled=sample_1st$sample_PSU,
-                    nsampl=100, 
+                    nsampl=500, 
                     writeFiles=FALSE,
                     progress=TRUE) 
-eval$coeff_var
+eval21$coeff_var
 
 # Domain level = regional
 domain_var <- "region"
 set.seed(1234)
-eval <- eval_2stage(df,
+eval22 <- eval_2stage(df,
                     PSU_code,
                     SSU_code,
                     domain_var,
                     target_vars,
                     PSU_sampled=sample_1st$sample_PSU,
-                    nsampl=100, 
+                    nsampl=500, 
                     writeFiles=FALSE,
                     progress=TRUE) 
-eval$coeff_var
+eval22$coeff_var
 
 alloc$sensitivity
 
