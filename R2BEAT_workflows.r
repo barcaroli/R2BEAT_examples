@@ -83,6 +83,7 @@ alloc1 <- beat.2st(stratif = inp1$strata,
 
 set.seed(1234)
 sample_1st <- select_PSU(alloc1, type="ALLOC", pps=TRUE)
+head(sample_1st$sample_PSU)
 
 sample_1st$PSU_stats
 
@@ -128,9 +129,9 @@ eval11 <- eval_2stage(df,
                     domain_var,
                     target_vars,
                     sample_1st$sample_PSU,
-                    nsampl=100, 
+                    nsampl=500, 
                     writeFiles=FALSE,
-                    progress=TRUE) 
+                    progress=FALSE) 
 eval11$coeff_var
 
 # Domain level = regional
@@ -143,9 +144,9 @@ eval12 <- eval_2stage(df,
                     domain_var,
                     target_vars,
                     sample_1st$sample_PSU,
-                    nsampl=100, 
+                    nsampl=500, 
                     writeFiles=FALSE,
-                    progress=TRUE) 
+                    progress=FALSE) 
 eval12$coeff_var
 
 alloc1$sensitivity
@@ -168,7 +169,7 @@ sample.des <- e.svydesign(samp,
 
 ## Find and collapse lonely strata
 ls <- find.lon.strata(sample.des)
-sample.des <- collapse.strata(sample.des)
+if (!is.null(ls)) sample.des <- collapse.strata(sample.des)
 
 ## Calibration with known totals
 totals <- pop.template(sample.des,
@@ -286,9 +287,9 @@ eval21 <- eval_2stage(df,
                     domain_var,
                     target_vars,
                     PSU_sampled=sample_1st$sample_PSU,
-                    nsampl=100, 
+                    nsampl=500, 
                     writeFiles=FALSE,
-                    progress=TRUE) 
+                    progress=FALSE) 
 eval21$coeff_var
 
 # Domain level = regional
@@ -300,9 +301,9 @@ eval22 <- eval_2stage(df,
                     domain_var,
                     target_vars,
                     PSU_sampled=sample_1st$sample_PSU,
-                    nsampl=100, 
+                    nsampl=500, 
                     writeFiles=FALSE,
-                    progress=TRUE) 
+                    progress=FALSE) 
 eval22$coeff_var
 
 alloc2$sensitivity

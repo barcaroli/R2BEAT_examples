@@ -204,7 +204,7 @@ eval11 <- eval_2stage(df,
                     sample_1st$sample_PSU,
                     nsampl=100, 
                     writeFiles=FALSE,
-                    progress=TRUE) 
+                    progress=FALSE) 
 eval11$coeff_var
 ```
 
@@ -221,7 +221,7 @@ eval12 <- eval_2stage(df,
                     sample_1st$sample_PSU,
                     nsampl=100, 
                     writeFiles=FALSE,
-                    progress=TRUE) 
+                    progress=FALSE) 
 eval12$coeff_var
 ```
 
@@ -448,7 +448,7 @@ eval21 <- eval_2stage(df,
                     PSU_sampled=sample_1st$sample_PSU,
                     nsampl=100, 
                     writeFiles=FALSE,
-                    progress=TRUE) 
+                    progress=FALSE) 
 eval21$coeff_var
 ```
 
@@ -465,7 +465,7 @@ eval22 <- eval_2stage(df,
                     PSU_sampled=sample_1st$sample_PSU,
                     nsampl=100, 
                     writeFiles=FALSE,
-                    progress=TRUE) 
+                    progress=FALSE) 
 eval22$coeff_var
 ```
 
